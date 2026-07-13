@@ -10,4 +10,6 @@ body {
   display: flex;
   height: 100vh;
   justify-content: center;
+  align-items: center;
+  background: center / cover no-repeat url(background.jpg);
 }
