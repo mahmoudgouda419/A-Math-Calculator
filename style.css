@@ -2,7 +2,7 @@
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 400;
-  font-size: 62.5%;
+
 }
 
 body {
@@ -44,6 +44,7 @@ body {
   outline: none;
   color: white;
   transition: 0.25s;
+
 }
 
 [data-number] {
@@ -98,4 +99,59 @@ body {
 .screen > .current-operand {
   color: rgba(255, 255, 255, 1);
   font-size: 4rem;
+}
+.mode-selector {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+}
+.mode-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  cursor: pointer;
+  font-size: 25px;
+  border-radius: 8px;
+}
+.mode-btn.active {
+  background:rgba(255,72,0,.35);
+}
+.tip-page {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 25px;
+}
+.hidden {
+  display: none !important;
+}
+
+.tip-page input{
+  height: 50px;
+  font-size: 25px;
+  padding: 10px;
+  border-radius: 8px;
+  background: transparent;
+  border: #9e9e9e4d 1px solid;
+}
+.tip-page button {
+  height: 55px;
+  font-size: 25px;
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  border:  #94949491 1px solid;
+  border-radius: 10px;
+  color: white;
+
+}
+.tip-page button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transition: 0.5s;
+}
+.tip-result{
+  font-size: 26px;
+  color: white;
 }

@@ -105,3 +105,45 @@ percentBtn.addEventListener("click", () => {
   calc.percent();
   calc.updateScreen();
 });
+
+
+const modeBtns = document.querySelectorAll(".mode-btn");
+const calculatorPage = document.querySelector(".calculator-page");
+const tipPage = document.querySelector(".tip-page");
+
+modeBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    modeBtns.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    if(btn.dataset.mode === "calculator") {
+      calculatorPage.classList.remove("hidden");
+      tipPage.classList.add("hidden");
+    }else {
+      calculatorPage.classList.add("hidden");
+      tipPage.classList.remove("hidden");
+
+    }
+  })
+})
+
+
+const billInput = document.getElementById("bill");
+const tipInput = document.getElementById("tip");
+const calcTipBtn = document.getElementById("calcTip");
+const tipAmount = document.getElementById("tipAmount");
+const totalAmount = document.getElementById("totalAmount");
+
+calcTipBtn.addEventListener("click", () => {
+  const bill = Number(billInput.value);
+  const tip = Number(tipInput.value);
+  if (isNaN(bill) || isNaN(tip) || bill < 0 || tip < 0)  {
+    tipAmount.textContent = "0$";
+    totalAmount.textContent = "0$";
+    return;
+  }
+  const tipValue = bill * tip/100;
+  const total = bill + tipValue;
+  tipAmount.textContent = `$${tipValue.toFixed(2)}`;
+  totalAmount.textContent = `$${total.toFixed(2)}`;
+
+})
