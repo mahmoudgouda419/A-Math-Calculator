@@ -76,31 +76,26 @@ const previousOperandText = document.querySelector("[data-previous-operand]");
 const currentOperandText = document.querySelector("[data-current-operand]");
 
 const calc = new Calculator(previousOperandText, currentOperandText);
-
 numberBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
     calc.appendNumber(btn.innerText);
     calc.updateScreen();
   });
 });
-
 operatorBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
     calc.selectOperator(btn.innerText);
     calc.updateScreen();
   });
 });
-
 equalsBtn.addEventListener("click", () => {
   calc.calculate();
   calc.updateScreen();
 });
-
 clearBtn.addEventListener("click", () => {
   calc.clear();
   calc.updateScreen();
 });
-
 percentBtn.addEventListener("click", () => {
   calc.percent();
   calc.updateScreen();
@@ -110,22 +105,28 @@ percentBtn.addEventListener("click", () => {
 const modeBtns = document.querySelectorAll(".mode-btn");
 const calculatorPage = document.querySelector(".calculator-page");
 const tipPage = document.querySelector(".tip-page");
+const currencyPage = document.querySelector(".currency-page");
 
-modeBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
+modeBtns.forEach(btn=>{
+  btn.addEventListener("click",()=>{
     modeBtns.forEach(b=>b.classList.remove("active"));
     btn.classList.add("active");
-    if(btn.dataset.mode === "calculator") {
-      calculatorPage.classList.remove("hidden");
-      tipPage.classList.add("hidden");
-    }else {
-      calculatorPage.classList.add("hidden");
-      tipPage.classList.remove("hidden");
-
+    calculatorPage.classList.add("hidden");
+    tipPage.classList.add("hidden");
+    currencyPage.classList.add("hidden");
+    switch(btn.dataset.mode){
+      case "calculator":
+        calculatorPage.classList.remove("hidden");
+        break;
+      case "tip":
+        tipPage.classList.remove("hidden");
+        break;
+      case "currency":
+        currencyPage.classList.remove("hidden");
+        break;
     }
-  })
-})
-
+  });
+});
 
 const billInput = document.getElementById("bill");
 const tipInput = document.getElementById("tip");
@@ -145,5 +146,53 @@ calcTipBtn.addEventListener("click", () => {
   const total = bill + tipValue;
   tipAmount.textContent = `$${tipValue.toFixed(2)}`;
   totalAmount.textContent = `$${total.toFixed(2)}`;
-
 })
+
+const amount = document.getElementById("amount");
+const fromCurrency = document.getElementById("fromCurrency");
+const toCurrency = document.getElementById("toCurrency");
+const convertBtn = document.getElementById("convertBtn");
+const currencyResult = document.getElementById("currencyResult");
+const swapBtn = document.getElementById("swapCurrencies");
+
+swapBtn.addEventListener("click", () => {
+  [fromCurrency.value, toCurrency.value] =
+      [toCurrency.value, fromCurrency.value];
+});
+convertBtn.addEventListener("click", async () => {
+  if (!amount.value) return;
+  try {
+    const response = await fetch(
+        `https://api.frankfurter.dev/v2/rate/${fromCurrency.value}/${toCurrency.value}`
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    const data = await response.json();
+    const result = (Number(amount.value) * data.rate).toFixed(2);
+    currencyResult.textContent =
+        `${amount.value} ${fromCurrency.value} = ${result} ${toCurrency.value}`;
+  } catch (error) {
+    console.error(error);
+    currencyResult.textContent = "Conversion failed";
+  }
+});
+
+
+async function loadCurrencies() {
+  try {
+    const response = await fetch("https://api.frankfurter.dev/v2/currencies");
+    const currencies = await response.json();
+    const optionsHTML = currencies
+        .map((c) => `<option value="${c.iso_code}">${c.iso_code} — ${c.name}</option>`)
+        .join("");
+    fromCurrency.innerHTML = optionsHTML;
+    toCurrency.innerHTML = optionsHTML;
+    fromCurrency.value = "USD";
+    toCurrency.value = "EGP";
+  } catch (error) {
+    console.error("Failed to load currencies:", error);
+  }
+}
+
+loadCurrencies();
