@@ -12,7 +12,7 @@ body {
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background: center / cover no-repeat url(./background.jpg);
+  background: center / cover no-repeat url(./background.png);
 }
 
 .container {
@@ -33,7 +33,7 @@ body {
   justify-content: center;
   align-content: center;
   max-width: 100vw;
-  grid-template-columns: repeat(4, 100px);
+  grid-template-columns: repeat(4, 130px);
   grid-template-rows: minmax(120px, auto) repeat(5, 100px);
 }
 
@@ -72,7 +72,7 @@ body {
 
 [data-operator],
 [data-equals] {
-  background-color: rgba(255, 72, 0, 0.2);
+  background-color: rgb(200 65 16 / 0.2);
 }
 
 [data-clear],
@@ -114,9 +114,10 @@ body {
   cursor: pointer;
   font-size: 25px;
   border-radius: 8px;
+  transition: 0.25s;
 }
 .mode-btn.active {
-  background:rgba(255,72,0,.35);
+  background: rgb(22 101 103 / 0.17);
 }
 .tip-page {
   display: flex;
@@ -161,13 +162,11 @@ body {
   gap: 15px;
   padding: 25px;
 }
-
 .currency-page h2 {
   text-align: center;
   font-size: 25px;
   margin: 0;
 }
-
 input {
   height: 55px;
   font-size: 22px;
@@ -179,16 +178,13 @@ input {
   color: white;
   transition: 0.25s;
 }
-
 input:focus {
-  border-color: rgb(205 108 63 / 0.6);
+  border-color: rgb(21 148 216);
   background: rgba(255, 255, 255, 0.05);
 }
-
 input::placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
-
 #fromCurrency,
 #toCurrency {
   height: 55px;
@@ -209,22 +205,18 @@ input::placeholder {
   background-size: 18px;
   transition: 0.25s;
 }
-
 #fromCurrency:hover,
 #toCurrency:hover,
 #fromCurrency:focus,
 #toCurrency:focus {
-  border-color: rgba(255, 72, 0, 0.6);
+  border-color: rgb(21 148 216);
   background-color: rgba(255, 255, 255, 0.05);
 }
-
-/* dropdown list itself - limited styling control in most browsers */
 #fromCurrency option,
 #toCurrency option {
-  background: #2b2b2b;
+  background: #0F2D35;
   color: white;
 }
-
 .currency-page button {
   height: 55px;
   border-radius: 10px;
@@ -235,18 +227,15 @@ input::placeholder {
   font-size: 22px;
   transition: 0.25s;
 }
-
 .currency-page button:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 72, 0, 0.6);
+  border-color: rgb(21 148 216);
 }
-
 #swapCurrencies {
   align-self: center;
   width: 55px;
   padding: 0;
 }
-
 #currencyResult {
   min-height: 30px;
 }
